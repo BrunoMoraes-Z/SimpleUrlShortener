@@ -1,0 +1,17 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: SimpleUrlShortener
+    src: ./
+    engine: python3.9
+    run: uvicorn src.main:app --no-server-header
+    primary: true
+    # public: true
+    public_routes:
+      - "/(?!api)*"
+    presets:
+      api_keys: true
+      env:
+        - name: DEFAULT_DESTINATION_WHEN_NOT_FOUND
+          description: Destination when target is not found
+          default: "https://www.google.com"
